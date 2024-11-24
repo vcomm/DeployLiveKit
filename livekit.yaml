@@ -1,0 +1,52 @@
+port: 7880  # Порт, на котором будет работать LiveKit
+
+# База данных
+redis:
+  address: redis:6379  # Используйте встроенный Redis или внешний сервис
+  username: ""
+  password: ""
+
+# Настройки WebRTC
+rtc:
+  udp_port: 50000  # Диапазон UDP-портов для RTP/RTCP-трафика
+  tcp_port: 7881   # Альтернативный порт для TCP-трафика
+  node_ip: "0.0.0.0"  # IP-адрес узла; для Render оставьте 0.0.0.0
+
+# TURN-сервер
+turn:
+  enabled: true
+  external_ip: "0.0.0.0"  # Временное значение  # Вставьте ваш публичный IP или домен
+  udp_port: 3478
+  tls_port: 5349
+  realm: "livekit-render"
+
+# STUN-серверы
+stun_servers:
+  - urls: ["stun:stun.l.google.com:19302"]  # Бесплатный STUN от Google
+  - urls: ["stun:stun.services.mozilla.com:3478"]
+
+# Настройки комнаты
+room:
+  enabled_codecs:
+    audio:
+      - name: opus
+    video:
+      - name: VP8
+      - name: H264
+  max_participants: 100  # Лимит участников в одной комнате
+
+# Безопасность
+keys:
+  # Генерация API-ключей и секретов для подключения клиентов и администраторов
+  - key: vcommLK_api_key
+    secret: vcommLK_secret_key
+
+# Логи
+logging:
+  level: info  # Уровень логирования: debug, info, warn, error
+  pion_level: warn  # Уровень логов для Pion WebRTC
+
+# Настройки мультиядерности
+node_select:
+  kind: CPU
+  cores: 2  # Количество ядер для использования
